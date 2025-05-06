@@ -84,7 +84,14 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3.5rem;
     margin-bottom: 20px;
 }
-
+.card-body {
+    height: 112px;
+}
+@media (max-width: 768px) {
+    .card-body {
+        height: auto;
+    }
+}
 #home .lead {
     color: #eee;
     font-size: 1.5rem;
