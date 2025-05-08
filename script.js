@@ -2,17 +2,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('#navbarNav .nav-link');
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.querySelector('#navbarNav');
+    let isNavbarOpen = false;
+
+    navbarCollapse.addEventListener('show.bs.collapse', () => {
+        isNavbarOpen = true;
+    });
+
+    navbarCollapse.addEventListener('hidden.bs.collapse', () => {
+        isNavbarOpen = false;
+    });
 
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            // Kiểm tra xem navbar đang mở và màn hình có kích thước md trở xuống hay không
-            const isCollapsed = !navbarCollapse.classList.contains('show');
-            const isMdOrLess = window.innerWidth <= 768; // Bootstrap breakpoint for md
-
-            if (!isCollapsed && isMdOrLess) {
-                navbarToggler.click(); // Simulate a click on the toggler button
+            const isMdOrLess = window.innerWidth <= 768;
+            if (isNavbarOpen && isMdOrLess) {
+                navbarToggler.click();
             }
         });
+    });
+
+    document.addEventListener('click', function(event) {
+        const isMdOrLess = window.innerWidth <= 768;
+        const targetElement = event.target;
+
+        if (isNavbarOpen && isMdOrLess) {
+            const isClickInsideNavbar = navbarCollapse.contains(targetElement) || navbarToggler.contains(targetElement);
+
+            if (!isClickInsideNavbar) {
+                navbarToggler.click();
+            }
+        }
     });
 });
 let modal = document.getElementById("imageModal");
