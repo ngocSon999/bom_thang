@@ -15,3 +15,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+let modal = document.getElementById("imageModal");
+let modalTriggers = document.querySelectorAll("body img[src]");
+let modalImage = document.getElementById("fullScreenImage");
+let closeButton = document.querySelector(".close-button");
+modalTriggers.forEach(function(img) {
+    img.addEventListener("click", function() {
+        modal.style.display = "block";
+        modalImage.src = this.getAttribute("src");
+    });
+});
+
+closeButton.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
